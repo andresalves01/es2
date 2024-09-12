@@ -38,23 +38,23 @@ public class DbOperations {
 	public static void createRecord() {
 		int count = 0;
 		Medico medico = null;
-		Especialidade[] especialidades = new Especialidade[5];
+		Especialidade[] especialidades = new Especialidade[] { new Especialidade("Pediatria"),
+				new Especialidade("Herbiatra"), new Especialidade("Psiquiatria"), new Especialidade("Pneumologia"),
+				new Especialidade("Medicina esportiva") };
 		try {
 			// Getting Session Object From SessionFactory
 			sessionObj = buildSessionFactory().openSession();
 			// Getting Transaction Object From Session Object
 			sessionObj.beginTransaction();
 
-			especialidades[0] = (Especialidade) sessionObj.save(new Especialidade("Pediatria"));
-			especialidades[1] = (Especialidade) sessionObj.save(new Especialidade("Herbiatra"));
-			especialidades[2] = (Especialidade) sessionObj.save(new Especialidade("Psiquiatria"));
-			especialidades[3] = (Especialidade) sessionObj.save(new Especialidade("Pneumologia"));
-			especialidades[4] = (Especialidade) sessionObj.save(new Especialidade("Medicina esportiva"));
+			for (int i = 0; i < especialidades.length; i++) {
+				especialidades[i].setId((int) sessionObj.save(especialidades[i]));
+			}
 
 			// Creating Transaction Entities
 			for (int j = 0; j < 10; j++) {
 				count = count + 1;
-				medico = new Medico(j + "", "Aluno " + j, Math.random() * 100_000, especialidades[j % especialidades.length]);
+				medico = new Medico(j + "", "Medico " + j, Math.random() * 100_000, especialidades[j % especialidades.length]);
 				sessionObj.save(medico);
 			}
 
@@ -84,7 +84,7 @@ public class DbOperations {
 			// Getting Transaction Object From Session Object
 			sessionObj.beginTransaction();
 
-			medicoList = sessionObj.createQuery("FROM Medico" + Matricula.matricula).list();
+			medicoList = sessionObj.createQuery("FROM Medico").list();
 		} catch (Exception sqlException) {
 			if (null != sessionObj.getTransaction()) {
 				logger.info("\n.......Transaction Is Being Rolled Back.......\n");
@@ -108,9 +108,9 @@ public class DbOperations {
 			sessionObj.beginTransaction();
 
 			// Creating Transaction Entity
-			Medico contatObj = (Medico) sessionObj.get(Medico.class, crm);
-			contatObj.setNome("Jose");
-			contatObj.setSalario(7500.25);
+			Medico medicoObj = (Medico) sessionObj.get(Medico.class, crm);
+			medicoObj.setNome("Jose");
+			medicoObj.setSalario(7500.25);
 
 			// Committing The Transactions To The Database
 			sessionObj.getTransaction().commit();
@@ -130,19 +130,19 @@ public class DbOperations {
 
 	// Method 4(a): This Method Is Used To Delete A Particular Record From The
 	// Database Table
-	public static void deleteRecord(Integer id) {
+	public static void deleteRecord(String id) {
 		try {
 			// Getting Session Object From SessionFactory
 			sessionObj = buildSessionFactory().openSession();
 			// Getting Transaction Object From Session Object
 			sessionObj.beginTransaction();
 
-			Medico contatoObj = findRecordById(id);
-			sessionObj.delete(contatoObj);
+			Medico doctorObj = findRecordById(id);
+			sessionObj.delete(doctorObj);
 
 			// Committing The Transactions To The Database
 			sessionObj.getTransaction().commit();
-			logger.info("\nContato With Id?= " + id + " Is Successfully Deleted From The Database!\n");
+			logger.info("\nMedico With Id?= " + id + " Is Successfully Deleted From The Database!\n");
 		} catch (Exception sqlException) {
 			if (null != sessionObj.getTransaction()) {
 				logger.info("\n.......Transaction Is Being Rolled Back.......\n");
@@ -157,15 +157,15 @@ public class DbOperations {
 	}
 
 	// Method 4(b): This Method To Find Particular Record In The Database Table
-	public static Medico findRecordById(Integer id) {
-		Medico findContatoObj = null;
+	public static Medico findRecordById(String id) {
+		Medico findDoctorObj = null;
 		try {
 			// Getting Session Object From SessionFactory
 			sessionObj = buildSessionFactory().openSession();
 			// Getting Transaction Object From Session Object
 			sessionObj.beginTransaction();
 
-			findContatoObj = (Medico) sessionObj.load(Medico.class, id);
+			findDoctorObj = (Medico) sessionObj.load(Medico.class, id);
 		} catch (Exception sqlException) {
 			if (null != sessionObj.getTransaction()) {
 				logger.info("\n.......Transaction Is Being Rolled Back.......\n");
@@ -173,7 +173,7 @@ public class DbOperations {
 			}
 			sqlException.printStackTrace();
 		}
-		return findContatoObj;
+		return findDoctorObj;
 	}
 
 	// Method 5: This Method Is Used To Delete All Records From The Database Table
@@ -184,7 +184,7 @@ public class DbOperations {
 			// Getting Transaction Object From Session Object
 			sessionObj.beginTransaction();
 
-			Query queryObj = sessionObj.createQuery("DELETE FROM Medico" + Matricula.matricula);
+			Query queryObj = sessionObj.createQuery("DELETE FROM Medico");
 			queryObj.executeUpdate();
 
 			// Committing The Transactions To The Database

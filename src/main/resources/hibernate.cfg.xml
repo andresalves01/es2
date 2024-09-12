@@ -10,8 +10,8 @@
 
 		<!-- Database Connection Settings -->
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://mysql942.umbler.com:41890/es2</property>
-		<property name="hibernate.connection.username">engsoft2</property>
+		<property name="hibernate.connection.url">jdbc:mysql://mysql834.umbler.com:41890/clinicamedica</property>
+		<property name="hibernate.connection.username">alunoes2</property>
 		<property name="hibernate.connection.password">pucminas</property>
 		<property name="show_sql">true</property>
 
@@ -19,6 +19,7 @@
 		<property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
 
 		<!-- Mapping With Model Class Containing Annotations -->
-		<mapping class="com.jcg.hibernate.crud.operations.Contato" />
+		<mapping class="com.jcg.hibernate.crud.operations.Medico" />
+		<mapping class="com.jcg.hibernate.crud.operations.Especialidade"/>
 	</session-factory>
 </hibernate-configuration>

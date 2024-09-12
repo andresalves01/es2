@@ -5,10 +5,11 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Especialidade" + Matricula.matricula)
+@Table(name = "Especialidade806191")
 public class Especialidade implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  public Especialidade() {
+  }
 
   public Especialidade(String nome) {
     this.nome = nome;
@@ -22,12 +23,12 @@ public class Especialidade implements Serializable {
   @Column(name = "nome")
   private String nome;
 
-  public int getId() {
-    return id;
-  }
-
   public void setId(int id) {
     this.id = id;
+  }
+
+  public int getId() {
+    return id;
   }
 
   public String getNome() {
@@ -37,4 +38,10 @@ public class Especialidade implements Serializable {
   public void setNome(String nome) {
     this.nome = nome;
   }
+
+  @Override
+  public String toString() {
+    return "Especialidade [id=" + id + ", nome=" + nome + "]";
+  }
+
 }

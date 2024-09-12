@@ -59,7 +59,7 @@ public class Medico implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Contato" + Matricula.matricula + " Details?= CRM: " + this.CRM + ", nome: " + this.nome + ", salario: "
+		return "Medico" + Matricula.matricula + " Details?= CRM: " + this.CRM + ", nome: " + this.nome + ", salario: "
 				+ this.salario + ", especialidade: " + (this.especialidade != null ? this.especialidade.getId() : "N/A");
 	}
 

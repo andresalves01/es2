@@ -15,31 +15,31 @@ public class AppMain {
 		DbOperations.createRecord();
 
 		logger.info("\n=======READ RECORDS=======\n");
-		List<Medico> viewContatos = DbOperations.displayRecords();
-		if (viewContatos != null & viewContatos.size() > 0) {
-			for (Medico contatoObj : viewContatos) {
-				logger.info(contatoObj.toString());
+		List<Medico> viewDoctors = DbOperations.displayRecords();
+		if (viewDoctors != null & viewDoctors.size() > 0) {
+			for (Medico medicoObj : viewDoctors) {
+				logger.info(medicoObj.toString());
 			}
 		}
 
 		logger.info("\n=======UPDATE RECORDS=======\n");
-		int updateId = 1;
+		String updateId = "5";
 		DbOperations.updateRecord(updateId);
 		logger.info("\n=======READ RECORDS AFTER UPDATION=======\n");
-		List<Medico> updateContato = DbOperations.displayRecords();
-		if (updateContato != null & updateContato.size() > 0) {
-			for (Medico contatoObj : updateContato) {
-				logger.info(contatoObj.toString());
+		List<Medico> updateDoctor = DbOperations.displayRecords();
+		if (updateDoctor != null & updateDoctor.size() > 0) {
+			for (Medico doctor : updateDoctor) {
+				logger.info(doctor.toString());
 			}
 		}
 
 		logger.info("\n=======DELETE RECORD=======\n");
-		int deleteId = 5;
+		String deleteId = "4";
 		DbOperations.deleteRecord(deleteId);
 		logger.info("\n=======READ RECORDS AFTER DELETION=======\n");
-		List<Medico> deleteContatoRecord = DbOperations.displayRecords();
-		for (Medico contatoObj : deleteContatoRecord) {
-			logger.info(contatoObj.toString());
+		List<Medico> deleteDoctorRecord = DbOperations.displayRecords();
+		for (Medico medicoObj : deleteDoctorRecord) {
+			logger.info(medicoObj.toString());
 		}
 
 		System.exit(0);
